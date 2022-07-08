@@ -1,0 +1,18 @@
+# DRL env
+gym>=0.17
+
+# ML framework
+torch
+
+
+# data handling
+numpy
+
+# plot/simulation
+matplotlib
+pybullet
+opencv-python
+box2d-py
+
+# profiling
+wandb
