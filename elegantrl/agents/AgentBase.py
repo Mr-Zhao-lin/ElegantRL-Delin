@@ -44,8 +44,11 @@ class AgentBase:
         '''network'''
         act_class = getattr(self, "act_class", None)
         cri_class = getattr(self, "cri_class", None)
-        self.act = act_class(net_dim, self.num_layer, state_dim, action_dim).to(self.device)
-        self.cri = cri_class(net_dim, self.num_layer, state_dim, action_dim).to(self.device) \
+        #print("done",net_dim, self.num_layer, state_dim, action_dim)
+        #self.act = act_class(net_dim, self.num_layer, state_dim, action_dim).to(self.device)  #net文件270行
+        self.act=act_class(net_dim,  state_dim, action_dim).to(self.device)  #net文件里面把层数写死了不知道为什么里面
+        #self.cri = cri_class(net_dim, self.num_layer, state_dim, action_dim).to(self.device) \
+        self.cri=cri_class(net_dim,state_dim, action_dim).to(self.device) \
             if cri_class else self.act
 
         '''optimizer'''
@@ -77,6 +80,7 @@ class AgentBase:
         self.current_lengths = torch.zeros(self.env_num, dtype=torch.float32, device=self.device)
 
     def explore_one_env(self, env, horizon_len: int) -> list:
+        #TODO 这里的参数数目也不对
         """
         Collect trajectories through the actor-environment interaction for a **single** environment instance.
 
@@ -88,7 +92,8 @@ class AgentBase:
         """
         traj_list = []
         last_dones = [0, ]
-        state = self.state[0]
+        #state = self.state[0]
+        state=self.state   #我靠这是有病吧
 
         i = 0
         done = False

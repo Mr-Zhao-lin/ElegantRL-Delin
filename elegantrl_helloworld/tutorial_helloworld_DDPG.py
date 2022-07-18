@@ -24,7 +24,7 @@ def train_ddpg_in_lunar_lander(gpu_id=0):  # DDPG is a simple but low sample eff
     env_name = "LunarLanderContinuous-v2"
     alg = "DDPG"
     
-    with open("config.yml", 'r') as f:
+    with open("config.yml", 'rb') as f:
         hyp = yaml.safe_load(f)[alg][env_name]
         
     env = gym.make(env_name)
@@ -58,7 +58,7 @@ def train_ddpg_in_bipedal_walker(gpu_id=0):  # DDPG is a simple but low sample e
 
 if __name__ == "__main__":
     #train_ddpg_in_pendulum()
-    #train_ddpg_in_lunar_lander()
-    train_ddpg_in_bipedal_walker()
+    train_ddpg_in_lunar_lander()
+    #train_ddpg_in_bipedal_walker()
 
 

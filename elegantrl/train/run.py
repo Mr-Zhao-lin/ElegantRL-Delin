@@ -51,8 +51,11 @@ def train_and_evaluate(args):
     args.init_before_training()
     gpu_id = args.learner_gpus
 
+
     '''init'''
-    env = args.env
+    env = args.env   #???
+    #TODO 这里的env啥也不是
+    env=build_env(None, args.env_func, args.env_args)
     steps = 0
 
     agent = init_agent(args, gpu_id, env)
@@ -61,7 +64,9 @@ def train_and_evaluate(args):
 
     agent.state = env.reset()
     if args.if_off_policy:
-        trajectory, step = agent.explore_env(env, args.num_seed_steps * args.num_steps_per_episode, True)
+        #trajectory, step = agent.explore_env(env, args.num_seed_steps * args.num_steps_per_episode, True)
+        trajectory, step=agent.explore_env(env, args.num_seed_steps*args.num_steps_per_episode)
+        #TODO 这里改过了
         buffer.update_buffer(trajectory)
         steps += step
 
@@ -75,7 +80,7 @@ def train_and_evaluate(args):
 
     if_train = True
     while if_train:
-        trajectory, step = agent.explore_env(env, horizon_len, False)
+        trajectory, step = agent.explore_env(env, horizon_len)  #TODO 同样改过了
         steps += step
         if if_off_policy:
             buffer.update_buffer(trajectory)

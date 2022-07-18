@@ -92,11 +92,11 @@ class Arguments:
         os.makedirs(self.cwd, exist_ok=True)
 
     def update_attr(self, attr: str):
-        return getattr(self.env, attr) if self.env_args is None else self.env_args[attr]
+        return getattr(self.env, attr) if self.env_args is None else self.env_args[attr]  #当 env_args有值时返回该值，否则返回原值
 
     def get_if_off_policy(self):
         name = self.agent.__name__
-        return all((name.find('PPO') == -1, name.find('A2C') == -1))  # if_off_policy
+        return all((name.find('PPO') == -1, name.find('A2C') == -1))  # if_off_policy 如果是pp0 Huo A2c则为否
 
     def print(self):
         # prints out args in a neat, readable format

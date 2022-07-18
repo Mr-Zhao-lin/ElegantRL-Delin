@@ -267,8 +267,10 @@ class ActorSAC(nn.Module):
 
 
 class ActorFixSAC(nn.Module):
-    def __init__(self, mid_dim, state_dim, action_dim):
+    def __init__(self, mid_dim, state_dim, action_dim): ##这里的问题   ？？？这里为什么不写成用Num_layer的而是写死？？
+        #TODO: check 这里为什么不写成用Num_layer的而是写死？？
         super().__init__()
+        #print(state_dim)
         self.net_state = nn.Sequential(
             nn.Linear(state_dim, mid_dim),
             nn.ReLU(),
@@ -289,6 +291,7 @@ class ActorFixSAC(nn.Module):
         return self.net_a_avg(tmp).tanh()  # action
 
     def get_action(self, state):
+        #print(state)
         t_tmp = self.net_state(state)
         a_avg = self.net_a_avg(t_tmp)  # NOTICE! it is a_avg without .tanh()
         a_std = self.net_a_std(t_tmp).clamp(-20, 2).exp()

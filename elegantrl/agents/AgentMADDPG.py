@@ -1,6 +1,7 @@
 import torch
 
 from elegantrl.agents.AgentBase import AgentBase
+from elegantrl.agents.AgentDDPG import AgentDDPG
 from elegantrl.agents.net import Actor, Critic
 
 
